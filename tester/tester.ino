@@ -36,14 +36,23 @@ void setup(){
     while (1);
   }
   Serial.println("MPR121 found!");
-//
-//  
-//
-//  // setup LEDs
-//  for(int pinNumber=2; pinNumber<5;pinNumber++){
+
+  
+
+  // setup LEDs
+//  for(int pinNumber=2; pinNumber<7;pinNumber+2){
 //    pinMode(pinNumber, OUTPUT);
 //    digitalWrite(pinNumber, LOW);
 //  }
+
+pinMode(2, OUTPUT);
+digitalWrite(2, LOW);
+
+pinMode(4, OUTPUT);
+digitalWrite(4, LOW);
+
+pinMode(6, OUTPUT);
+digitalWrite(6, LOW);
   
 }
 
@@ -58,6 +67,9 @@ void loop(){
     lcd.setCursor(0,1);
     lcd.print("WITH YOUR FINGER");
     drawPromptDisplayed = true;
+      digitalWrite(4, LOW);
+      digitalWrite(6, LOW);
+      digitalWrite(2, LOW);
   }
   
   // Get the currently touched pads
@@ -93,21 +105,21 @@ void checkForTouch(){
 void enableDrawMode(){
   drawPromptDisplayed = false;
   for (uint8_t i=0; i<10; i++) {
-//    if(i==0 || i==3 || i==6 || i==9 || i==12 || i=15 || i==18){
-//      digitalWrite(2, HIGH);
-//      digitalWrite(3, LOW);
-//      digitalWrite(4, LOW);
-//    }
-//    else if(i==1 || i==4 || i==7 || i==10 || i==13 || i=16 || i==19){
-//      digitalWrite(2, LOW);
-//      digitalWrite(3, HIGH);
-//      digitalWrite(4, LOW);
-//    }
-//    else if(i==2 || i==5 || i==8 || i==11 || i==14 || i=17 || i==20){
-//      digitalWrite(2, LOW);
-//      digitalWrite(3, LOW);
-//      digitalWrite(4, HIGH);
-//    }
+    if(i==0 || i==3 || i==6 || i==9 || i==12 || i==15 || i==18){
+      digitalWrite(4, HIGH);
+      digitalWrite(6, LOW);
+      digitalWrite(2, LOW);
+    }
+    else if(i==1 || i==4 || i==7 || i==10 || i==13 || i==16 || i==19){
+      digitalWrite(4, LOW);
+      digitalWrite(6, HIGH);
+      digitalWrite(2, LOW);
+    }
+    else if(i==2 || i==5 || i==8 || i==11 || i==14 || i==17 || i==20){
+      digitalWrite(4, LOW);
+      digitalWrite(6, LOW);
+      digitalWrite(2, HIGH);
+    }
     if(i%2==0){
       lcd.clear();
       lcd.setCursor(0,0);
@@ -138,10 +150,11 @@ void processResults(){
     lcd.print(" COLD FISH: GO ");
     lcd.setCursor(0,1);
     lcd.print("FIND INSPIRATION");
-    delay(1000);
-//    digitalWrite(2, LOW);
-//    digitalWrite(3, LOW);
-//    digitalWrite(4, LOW);
+    digitalWrite(4, LOW);
+    digitalWrite(6, LOW);
+    digitalWrite(2, LOW);
+    delay(2000);
+
   }
 
   else if(sensorVal >= 15 && sensorVal < 30){
@@ -149,10 +162,10 @@ void processResults(){
     lcd.print("  LUKEWARM: DO  ");
     lcd.setCursor(0,1);
     lcd.print("10 JUMPING JACKS");
-    delay(1000);
-//    digitalWrite(2, HIGH);
-//    digitalWrite(3, LOW);
-//    digitalWrite(4, LOW);
+    digitalWrite(4, HIGH);
+    digitalWrite(6, LOW);
+    digitalWrite(2, LOW);
+    delay(2000);
   }
 
   else if(sensorVal >= 30 && sensorVal < 45){
@@ -160,10 +173,10 @@ void processResults(){
     lcd.print("  IN THE ZONE:  ");
     lcd.setCursor(0,1);
     lcd.print("  GET TO WORK  ");
-    delay(1000);
-//    digitalWrite(2, HIGH);
-//    digitalWrite(3, HIGH);
-//    digitalWrite(4, LOW);
+    digitalWrite(4, HIGH);
+    digitalWrite(6, HIGH);
+    digitalWrite(2, LOW);
+    delay(2000);
   }
 
   else if(sensorVal >= 45){
@@ -171,9 +184,9 @@ void processResults(){
     lcd.print("    ON FIRE:    ");
     lcd.setCursor(0,1);
     lcd.print(" MAKE COOL SHIT ");
+    digitalWrite(4, HIGH);
+    digitalWrite(6, HIGH);
+    digitalWrite(2, HIGH);
     delay(2000);
-//    digitalWrite(2, HIGH);
-//    digitalWrite(3, HIGH);
-//    digitalWrite(4, HIGH);
   }
 }
